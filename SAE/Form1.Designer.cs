@@ -39,8 +39,7 @@
             txtAdresseIPCIDR = new TextBox();
             lblTitre = new Label();
             grpAffichage = new GroupBox();
-            txtDerniereMachineAffiche = new TextBox();
-            txtPremiereMachineAffiche = new TextBox();
+            btnResetALL2 = new Button();
             lblReseau = new Label();
             txtNombreIPDispoAffiche = new TextBox();
             txtAdresseBroadcastAffiche = new TextBox();
@@ -51,7 +50,6 @@
             txtMasqueReseauAffiche = new TextBox();
             txtCIDRAffiche = new TextBox();
             txtClasseIPAffiche = new TextBox();
-            btnResetALL2 = new Button();
             grpCalculateurMasque.SuspendLayout();
             grpAffichage.SuspendLayout();
             SuspendLayout();
@@ -177,8 +175,6 @@
             // grpAffichage
             // 
             grpAffichage.Controls.Add(btnResetALL2);
-            grpAffichage.Controls.Add(txtDerniereMachineAffiche);
-            grpAffichage.Controls.Add(txtPremiereMachineAffiche);
             grpAffichage.Controls.Add(lblReseau);
             grpAffichage.Controls.Add(txtNombreIPDispoAffiche);
             grpAffichage.Controls.Add(txtAdresseBroadcastAffiche);
@@ -197,23 +193,15 @@
             grpAffichage.Text = "Affiche";
             grpAffichage.Enter += grpAffichage_Enter;
             // 
-            // txtDerniereMachineAffiche
+            // btnResetALL2
             // 
-            txtDerniereMachineAffiche.Location = new Point(28, 392);
-            txtDerniereMachineAffiche.Name = "txtDerniereMachineAffiche";
-            txtDerniereMachineAffiche.Size = new Size(305, 23);
-            txtDerniereMachineAffiche.TabIndex = 10;
-            txtDerniereMachineAffiche.Text = "Derniere Machine :";
-            txtDerniereMachineAffiche.TextChanged += textBox2_TextChanged;
-            // 
-            // txtPremiereMachineAffiche
-            // 
-            txtPremiereMachineAffiche.Location = new Point(28, 363);
-            txtPremiereMachineAffiche.Name = "txtPremiereMachineAffiche";
-            txtPremiereMachineAffiche.Size = new Size(305, 23);
-            txtPremiereMachineAffiche.TabIndex = 9;
-            txtPremiereMachineAffiche.Text = "Premiere Machine :";
-            txtPremiereMachineAffiche.TextChanged += txtPremiereMachineAffiche_TextChanged;
+            btnResetALL2.Location = new Point(28, 433);
+            btnResetALL2.Name = "btnResetALL2";
+            btnResetALL2.Size = new Size(75, 23);
+            btnResetALL2.TabIndex = 7;
+            btnResetALL2.Text = "Reset ALL";
+            btnResetALL2.UseVisualStyleBackColor = true;
+            btnResetALL2.Click += btnResetALL2_Click;
             // 
             // lblReseau
             // 
@@ -305,16 +293,6 @@
             txtClasseIPAffiche.Text = "Classe IP :";
             txtClasseIPAffiche.TextChanged += txtClasseIPAffiche_TextChanged;
             // 
-            // btnResetALL2
-            // 
-            btnResetALL2.Location = new Point(28, 433);
-            btnResetALL2.Name = "btnResetALL2";
-            btnResetALL2.Size = new Size(75, 23);
-            btnResetALL2.TabIndex = 7;
-            btnResetALL2.Text = "Reset ALL";
-            btnResetALL2.UseVisualStyleBackColor = true;
-            btnResetALL2.Click += btnResetALL2_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -355,8 +333,6 @@
         private TextBox txtMasqueInverseAffiche;
         private TextBox txtMasqueReseauAffiche;
         private TextBox txtCIDRAffiche;
-        private TextBox txtDerniereMachineAffiche;
-        private TextBox txtPremiereMachineAffiche;
         private Label lblErreur;
         private Button btnResetALL2;
     }

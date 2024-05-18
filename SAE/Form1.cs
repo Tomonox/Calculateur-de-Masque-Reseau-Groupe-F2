@@ -80,9 +80,124 @@ namespace SAE
         private void label1_Click(object sender, EventArgs e) { }
         private void txtAdresseIP_TextChanged(object sender, EventArgs e) { }
         private void label1_Click_1(object sender, EventArgs e) { }
-        private void btnENVOYER_Click(object sender, EventArgs e) { }
-        private void groupBox1_Enter_1(object sender, EventArgs e) { }
-        private void textBox2_TextChanged(object sender, EventArgs e) { }
+        private void btnENVOYER_Click(object sender, EventArgs e)
+        {
+            string ipAddress = txtAdresseIP.Text;
+            string subnetMask = txtMasque.Text;
+
+            if (!IPAddress.TryParse(ipAddress, out IPAddress ip) || !IPAddress.TryParse(subnetMask, out IPAddress mask))
+            {
+                MessageBox.Show("Adresse IP ou masque de sous-réseau invalide.");
+                return;
+            }
+
+            byte[] ipBytes = ip.GetAddressBytes();
+            byte[] maskBytes = mask.GetAddressBytes();
+
+            // Compter le nombre de bits à 1 dans le masque de sous-réseau
+            int cidr = 0;
+            for (int i = 0; i < maskBytes.Length; i++)
+            {
+                byte b = maskBytes[i];
+                while (b > 0)
+                {
+                    if ((b & 1) == 1)
+                        cidr++;
+                    b >>= 1;
+                }
+            }
+
+            // Afficher le CIDR dans txtCIDRAffiche
+            txtCIDRAffiche.Text = "CIDR : " + cidr;
+
+            // Calculer et afficher la classe de l'adresse IP
+            int firstOctet = ipBytes[0];
+            string ipClass = "";
+            if (firstOctet >= 1 && firstOctet <= 126)
+            {
+                ipClass = "A";
+            }
+            else if (firstOctet >= 128 && firstOctet <= 191)
+            {
+                ipClass = "B";
+            }
+            else if (firstOctet >= 192 && firstOctet <= 223)
+            {
+                ipClass = "C";
+            }
+            else if (firstOctet >= 224 && firstOctet <= 239)
+            {
+                ipClass = "D";
+            }
+            else if (firstOctet >= 240 && firstOctet <= 255)
+            {
+                ipClass = "E";
+            }
+
+            // Afficher la classe de l'adresse IP dans txtClasseIPAffiche
+            txtClasseIPAffiche.Text = "Classe IP : " + ipClass;
+
+            // Calculer le masque de réseau en format d'adresse IP
+            IPAddress subnetMaskIP = new IPAddress(maskBytes);
+            string subnetMaskString = subnetMaskIP.ToString();
+
+            // Afficher le masque de réseau dans txtMasqueReseauAffiche
+            txtMasqueReseauAffiche.Text = "Masque de réseau : " + subnetMaskString;
+
+            // Calculer et afficher le masque inverse
+            byte[] inverseMaskBytes = new byte[maskBytes.Length];
+            for (int i = 0; i < maskBytes.Length; i++)
+            {
+                inverseMaskBytes[i] = (byte)~maskBytes[i];
+            }
+            IPAddress inverseSubnetMaskIP = new IPAddress(inverseMaskBytes);
+            string inverseSubnetMaskString = inverseSubnetMaskIP.ToString();
+
+            // Afficher le masque inverse dans txtMasqueInverseAffiche
+            txtMasqueInverseAffiche.Text = "Masque inverse : " + inverseSubnetMaskString;
+
+            // Calculer l'adresse de réseau
+            byte[] networkBytes = new byte[4];
+            for (int i = 0; i < 4; i++)
+            {
+                networkBytes[i] = (byte)(ipBytes[i] & maskBytes[i]);
+            }
+            IPAddress networkAddress = new IPAddress(networkBytes);
+            string networkAddressString = networkAddress.ToString();
+
+            // Afficher l'adresse de réseau dans txtAdresseReseauAffiche
+            txtAdresseReseauAffiche.Text = "Adresse de réseau : " + networkAddressString;
+
+            // Calculer et afficher la première adresse utilisable
+            byte[] firstUsableBytes = (byte[])networkBytes.Clone();
+            firstUsableBytes[3] += 1;
+            IPAddress firstUsableAddress = new IPAddress(firstUsableBytes);
+            string firstUsableAddressString = firstUsableAddress.ToString();
+            txtPremiereAdresseAffiche.Text = "Première adresse : " + firstUsableAddressString;
+
+            // Calculer et afficher la dernière adresse utilisable
+            byte[] broadcastBytes = new byte[4];
+            for (int i = 0; i < 4; i++)
+            {
+                broadcastBytes[i] = (byte)(networkBytes[i] | ~maskBytes[i]);
+            }
+            byte[] lastUsableBytes = (byte[])broadcastBytes.Clone();
+            lastUsableBytes[3] -= 1;
+            IPAddress lastUsableAddress = new IPAddress(lastUsableBytes);
+            string lastUsableAddressString = lastUsableAddress.ToString();
+            txtDerniereAdresseAffiche.Text = "Dernière adresse : " + lastUsableAddressString;
+
+            // Afficher l'adresse de broadcast
+            IPAddress broadcastAddress = new IPAddress(broadcastBytes);
+            string broadcastAddressString = broadcastAddress.ToString();
+            txtAdresseBroadcastAffiche.Text = "Adresse de broadcast : " + broadcastAddressString;
+
+            // Calculer et afficher le nombre d'adresses IP disponibles
+            uint totalAddresses = (uint)(1 << (32 - cidr));
+            uint usableAddresses = cidr >= 31 ? 0 : totalAddresses - 2; // Si CIDR est 31 ou 32, 0 adresses utilisables
+            txtNombreIPDispoAffiche.Text = "Nombre d'adresses IP disponibles : " + usableAddresses;
+        }
+
         private void txtClasseIPAffiche_TextChanged(object sender, EventArgs e) { }
         private void grpAffichage_Enter(object sender, EventArgs e) { }
         private void btnCalculer2_Click(object sender, EventArgs e)
@@ -168,7 +283,7 @@ namespace SAE
                 // Afficher le masque inverse dans txtMasqueInverseAffiche
                 txtMasqueInverseAffiche.Text = "Masque inverse : " + inverseSubnetMaskString;
 
-                // Calculer l'adresse du réseau
+                // Calculer l'adresse de réseau
                 string[] ipParts = parts[0].Split('.');
                 byte[] ipBytes = new byte[4];
                 for (int i = 0; i < 4; i++)
@@ -186,7 +301,7 @@ namespace SAE
                 string networkAddressString = networkAddress.ToString();
 
                 // Afficher l'adresse du réseau dans txtAdresseReseauAffiche
-                txtAdresseReseauAffiche.Text = "Adresse du réseau : " + networkAddressString;
+                txtAdresseReseauAffiche.Text = "Adresse de réseau : " + networkAddressString;
 
                 // Calculer et afficher la première adresse utilisable
                 byte[] firstUsableBytes = (byte[])networkBytes.Clone();
@@ -194,7 +309,6 @@ namespace SAE
                 IPAddress firstUsableAddress = new IPAddress(firstUsableBytes);
                 string firstUsableAddressString = firstUsableAddress.ToString();
                 txtPremiereAdresseAffiche.Text = "Première adresse : " + firstUsableAddressString;
-                txtPremiereMachineAffiche.Text = "Première Machine : " + firstUsableAddressString;
 
                 // Calculer et afficher la dernière adresse utilisable
                 byte[] broadcastBytes = new byte[4];
@@ -207,7 +321,6 @@ namespace SAE
                 IPAddress lastUsableAddress = new IPAddress(lastUsableBytes);
                 string lastUsableAddressString = lastUsableAddress.ToString();
                 txtDerniereAdresseAffiche.Text = "Dernière adresse : " + lastUsableAddressString;
-                txtDerniereMachineAffiche.Text = "Dernière Machine : " + lastUsableAddressString;
 
                 // Afficher l'adresse de broadcast
                 IPAddress broadcastAddress = new IPAddress(broadcastBytes);
@@ -236,6 +349,7 @@ namespace SAE
 
             txtMasque.Text = "Masque";
             txtMasque.ForeColor = SystemColors.GrayText;
+
         }
 
         private void txtCIDRAffiche_TextChanged(object sender, EventArgs e) { }
@@ -286,13 +400,14 @@ namespace SAE
             txtCIDRAffiche.Text = "CIDR : ";
             txtMasqueReseauAffiche.Text = "Masque de réseau : ";
             txtMasqueInverseAffiche.Text = "Masque inverse : ";
-            txtAdresseReseauAffiche.Text = "Adresse du réseau : ";
+            txtAdresseReseauAffiche.Text = "Adresse de réseau : ";
             txtPremiereAdresseAffiche.Text = "Première adresse : ";
             txtDerniereAdresseAffiche.Text = "Dernière adresse : ";
             txtAdresseBroadcastAffiche.Text = "Adresse de broadcast : ";
             txtNombreIPDispoAffiche.Text = "Nombre d'adresses IP disponibles : ";
-            txtPremiereMachineAffiche.Text = "Première Machine : ";
-            txtDerniereMachineAffiche.Text = "Dernière Machine : ";
+
         }
+
     }
+
 }
