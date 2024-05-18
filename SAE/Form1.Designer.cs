@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             grpCalculateurMasque = new GroupBox();
+            lblErreur = new Label();
             btnResetALL = new Button();
             btnCalculer2 = new Button();
             btnCalculer = new Button();
@@ -47,15 +48,17 @@
             txtPremiereAdresseAffiche = new TextBox();
             txtAdresseReseauAffiche = new TextBox();
             txtMasqueInverseAffiche = new TextBox();
-            txtMasqueSousReseauAffiche = new TextBox();
+            txtMasqueReseauAffiche = new TextBox();
             txtCIDRAffiche = new TextBox();
             txtClasseIPAffiche = new TextBox();
+            btnResetALL2 = new Button();
             grpCalculateurMasque.SuspendLayout();
             grpAffichage.SuspendLayout();
             SuspendLayout();
             // 
             // grpCalculateurMasque
             // 
+            grpCalculateurMasque.Controls.Add(lblErreur);
             grpCalculateurMasque.Controls.Add(btnResetALL);
             grpCalculateurMasque.Controls.Add(btnCalculer2);
             grpCalculateurMasque.Controls.Add(btnCalculer);
@@ -63,13 +66,24 @@
             grpCalculateurMasque.Controls.Add(txtMasque);
             grpCalculateurMasque.Controls.Add(txtAdresseIP);
             grpCalculateurMasque.Controls.Add(txtAdresseIPCIDR);
-            grpCalculateurMasque.Location = new Point(401, 76);
+            grpCalculateurMasque.Location = new Point(142, 46);
             grpCalculateurMasque.Name = "grpCalculateurMasque";
             grpCalculateurMasque.Size = new Size(387, 220);
             grpCalculateurMasque.TabIndex = 0;
             grpCalculateurMasque.TabStop = false;
             grpCalculateurMasque.Text = "Calculateur";
             grpCalculateurMasque.Enter += groupBox1_Enter;
+            // 
+            // lblErreur
+            // 
+            lblErreur.AutoSize = true;
+            lblErreur.BackColor = SystemColors.Control;
+            lblErreur.ForeColor = SystemColors.Control;
+            lblErreur.Location = new Point(28, 193);
+            lblErreur.Name = "lblErreur";
+            lblErreur.Size = new Size(87, 15);
+            lblErreur.TabIndex = 6;
+            lblErreur.Text = "Message Erreur";
             // 
             // btnResetALL
             // 
@@ -153,7 +167,7 @@
             // lblTitre
             // 
             lblTitre.AutoSize = true;
-            lblTitre.Location = new Point(506, 40);
+            lblTitre.Location = new Point(247, 10);
             lblTitre.Name = "lblTitre";
             lblTitre.Size = new Size(168, 15);
             lblTitre.TabIndex = 1;
@@ -162,6 +176,7 @@
             // 
             // grpAffichage
             // 
+            grpAffichage.Controls.Add(btnResetALL2);
             grpAffichage.Controls.Add(txtDerniereMachineAffiche);
             grpAffichage.Controls.Add(txtPremiereMachineAffiche);
             grpAffichage.Controls.Add(lblReseau);
@@ -171,10 +186,10 @@
             grpAffichage.Controls.Add(txtPremiereAdresseAffiche);
             grpAffichage.Controls.Add(txtAdresseReseauAffiche);
             grpAffichage.Controls.Add(txtMasqueInverseAffiche);
-            grpAffichage.Controls.Add(txtMasqueSousReseauAffiche);
+            grpAffichage.Controls.Add(txtMasqueReseauAffiche);
             grpAffichage.Controls.Add(txtCIDRAffiche);
             grpAffichage.Controls.Add(txtClasseIPAffiche);
-            grpAffichage.Location = new Point(401, 302);
+            grpAffichage.Location = new Point(142, 272);
             grpAffichage.Name = "grpAffichage";
             grpAffichage.Size = new Size(387, 471);
             grpAffichage.TabIndex = 2;
@@ -198,6 +213,7 @@
             txtPremiereMachineAffiche.Size = new Size(305, 23);
             txtPremiereMachineAffiche.TabIndex = 9;
             txtPremiereMachineAffiche.Text = "Premiere Machine :";
+            txtPremiereMachineAffiche.TextChanged += txtPremiereMachineAffiche_TextChanged;
             // 
             // lblReseau
             // 
@@ -262,14 +278,14 @@
             txtMasqueInverseAffiche.Text = "Masque inverse :";
             txtMasqueInverseAffiche.TextChanged += txtMasqueInverseAffiche_TextChanged;
             // 
-            // txtMasqueSousReseauAffiche
+            // txtMasqueReseauAffiche
             // 
-            txtMasqueSousReseauAffiche.Location = new Point(28, 99);
-            txtMasqueSousReseauAffiche.Name = "txtMasqueSousReseauAffiche";
-            txtMasqueSousReseauAffiche.Size = new Size(305, 23);
-            txtMasqueSousReseauAffiche.TabIndex = 2;
-            txtMasqueSousReseauAffiche.Text = "Masque de réseau :";
-            txtMasqueSousReseauAffiche.TextChanged += txtMasqueSousReseauAffiche_TextChanged;
+            txtMasqueReseauAffiche.Location = new Point(28, 99);
+            txtMasqueReseauAffiche.Name = "txtMasqueReseauAffiche";
+            txtMasqueReseauAffiche.Size = new Size(305, 23);
+            txtMasqueReseauAffiche.TabIndex = 2;
+            txtMasqueReseauAffiche.Text = "Masque de réseau :";
+            txtMasqueReseauAffiche.TextChanged += txtMasqueSousReseauAffiche_TextChanged;
             // 
             // txtCIDRAffiche
             // 
@@ -289,11 +305,21 @@
             txtClasseIPAffiche.Text = "Classe IP :";
             txtClasseIPAffiche.TextChanged += txtClasseIPAffiche_TextChanged;
             // 
+            // btnResetALL2
+            // 
+            btnResetALL2.Location = new Point(28, 433);
+            btnResetALL2.Name = "btnResetALL2";
+            btnResetALL2.Size = new Size(75, 23);
+            btnResetALL2.TabIndex = 7;
+            btnResetALL2.Text = "Reset ALL";
+            btnResetALL2.UseVisualStyleBackColor = true;
+            btnResetALL2.Click += btnResetALL2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1245, 804);
+            ClientSize = new Size(604, 807);
             Controls.Add(grpAffichage);
             Controls.Add(lblTitre);
             Controls.Add(grpCalculateurMasque);
@@ -327,9 +353,11 @@
         private TextBox txtPremiereAdresseAffiche;
         private TextBox txtAdresseReseauAffiche;
         private TextBox txtMasqueInverseAffiche;
-        private TextBox txtMasqueSousReseauAffiche;
+        private TextBox txtMasqueReseauAffiche;
         private TextBox txtCIDRAffiche;
         private TextBox txtDerniereMachineAffiche;
         private TextBox txtPremiereMachineAffiche;
+        private Label lblErreur;
+        private Button btnResetALL2;
     }
 }
