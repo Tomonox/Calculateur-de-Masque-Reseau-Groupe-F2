@@ -37,8 +37,8 @@
             txtMasque = new TextBox();
             txtAdresseIP = new TextBox();
             txtAdresseIPCIDR = new TextBox();
-            lblTitre = new Label();
             grpAffichage = new GroupBox();
+            btnResetALL2 = new Button();
             txtDerniereMachineAffiche = new TextBox();
             txtPremiereMachineAffiche = new TextBox();
             lblReseau = new Label();
@@ -51,13 +51,14 @@
             txtMasqueReseauAffiche = new TextBox();
             txtCIDRAffiche = new TextBox();
             txtClasseIPAffiche = new TextBox();
-            btnResetALL2 = new Button();
             grpCalculateurMasque.SuspendLayout();
             grpAffichage.SuspendLayout();
             SuspendLayout();
             // 
             // grpCalculateurMasque
             // 
+            grpCalculateurMasque.Anchor = AnchorStyles.None;
+            grpCalculateurMasque.BackColor = Color.FromArgb(217, 217, 217);
             grpCalculateurMasque.Controls.Add(lblErreur);
             grpCalculateurMasque.Controls.Add(btnResetALL);
             grpCalculateurMasque.Controls.Add(btnCalculer2);
@@ -66,7 +67,7 @@
             grpCalculateurMasque.Controls.Add(txtMasque);
             grpCalculateurMasque.Controls.Add(txtAdresseIP);
             grpCalculateurMasque.Controls.Add(txtAdresseIPCIDR);
-            grpCalculateurMasque.Location = new Point(142, 46);
+            grpCalculateurMasque.Location = new Point(241, 30);
             grpCalculateurMasque.Name = "grpCalculateurMasque";
             grpCalculateurMasque.Size = new Size(387, 220);
             grpCalculateurMasque.TabIndex = 0;
@@ -87,32 +88,36 @@
             // 
             // btnResetALL
             // 
+            btnResetALL.BackColor = Color.Gainsboro;
             btnResetALL.Location = new Point(28, 155);
             btnResetALL.Name = "btnResetALL";
             btnResetALL.Size = new Size(75, 23);
             btnResetALL.TabIndex = 5;
             btnResetALL.Text = "Reset ALL";
-            btnResetALL.UseVisualStyleBackColor = true;
+            btnResetALL.UseVisualStyleBackColor = false;
             btnResetALL.Click += btnResetALL_Click;
             // 
             // btnCalculer2
             // 
+            btnCalculer2.BackColor = Color.Gainsboro;
+            btnCalculer2.ForeColor = SystemColors.ControlText;
             btnCalculer2.Location = new Point(292, 39);
             btnCalculer2.Name = "btnCalculer2";
             btnCalculer2.Size = new Size(75, 23);
             btnCalculer2.TabIndex = 4;
             btnCalculer2.Text = "Calculer";
-            btnCalculer2.UseVisualStyleBackColor = true;
+            btnCalculer2.UseVisualStyleBackColor = false;
             btnCalculer2.Click += btnCalculer2_Click;
             // 
             // btnCalculer
             // 
+            btnCalculer.BackColor = Color.Gainsboro;
             btnCalculer.Location = new Point(292, 110);
             btnCalculer.Name = "btnCalculer";
             btnCalculer.Size = new Size(75, 23);
             btnCalculer.TabIndex = 3;
             btnCalculer.Text = "Calculer";
-            btnCalculer.UseVisualStyleBackColor = true;
+            btnCalculer.UseVisualStyleBackColor = false;
             btnCalculer.Click += btnENVOYER_Click;
             // 
             // lblOU
@@ -164,18 +169,10 @@
             txtAdresseIPCIDR.Enter += txtAdresseIPCIDR_Enter_1;
             txtAdresseIPCIDR.Leave += txtAdresseIPCIDR_Leave;
             // 
-            // lblTitre
-            // 
-            lblTitre.AutoSize = true;
-            lblTitre.Location = new Point(247, 10);
-            lblTitre.Name = "lblTitre";
-            lblTitre.Size = new Size(168, 15);
-            lblTitre.TabIndex = 1;
-            lblTitre.Text = "Calculateur de Masque Réseau";
-            lblTitre.Click += label1_Click;
-            // 
             // grpAffichage
             // 
+            grpAffichage.Anchor = AnchorStyles.None;
+            grpAffichage.BackColor = Color.FromArgb(217, 217, 217);
             grpAffichage.Controls.Add(btnResetALL2);
             grpAffichage.Controls.Add(txtDerniereMachineAffiche);
             grpAffichage.Controls.Add(txtPremiereMachineAffiche);
@@ -189,13 +186,24 @@
             grpAffichage.Controls.Add(txtMasqueReseauAffiche);
             grpAffichage.Controls.Add(txtCIDRAffiche);
             grpAffichage.Controls.Add(txtClasseIPAffiche);
-            grpAffichage.Location = new Point(142, 272);
+            grpAffichage.Location = new Point(243, 256);
             grpAffichage.Name = "grpAffichage";
             grpAffichage.Size = new Size(387, 471);
             grpAffichage.TabIndex = 2;
             grpAffichage.TabStop = false;
             grpAffichage.Text = "Affiche";
             grpAffichage.Enter += grpAffichage_Enter;
+            // 
+            // btnResetALL2
+            // 
+            btnResetALL2.BackColor = Color.Gainsboro;
+            btnResetALL2.Location = new Point(28, 433);
+            btnResetALL2.Name = "btnResetALL2";
+            btnResetALL2.Size = new Size(75, 23);
+            btnResetALL2.TabIndex = 7;
+            btnResetALL2.Text = "Reset ALL";
+            btnResetALL2.UseVisualStyleBackColor = false;
+            btnResetALL2.Click += btnResetALL2_Click;
             // 
             // txtDerniereMachineAffiche
             // 
@@ -305,38 +313,27 @@
             txtClasseIPAffiche.Text = "Classe IP :";
             txtClasseIPAffiche.TextChanged += txtClasseIPAffiche_TextChanged;
             // 
-            // btnResetALL2
-            // 
-            btnResetALL2.Location = new Point(28, 433);
-            btnResetALL2.Name = "btnResetALL2";
-            btnResetALL2.Size = new Size(75, 23);
-            btnResetALL2.TabIndex = 7;
-            btnResetALL2.Text = "Reset ALL";
-            btnResetALL2.UseVisualStyleBackColor = true;
-            btnResetALL2.Click += btnResetALL2_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(604, 807);
+            BackColor = Color.FromArgb(148, 180, 164);
+            ClientSize = new Size(941, 774);
             Controls.Add(grpAffichage);
-            Controls.Add(lblTitre);
             Controls.Add(grpCalculateurMasque);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Calculateur de Masque Réseau";
+            Load += Form1_Load;
             grpCalculateurMasque.ResumeLayout(false);
             grpCalculateurMasque.PerformLayout();
             grpAffichage.ResumeLayout(false);
             grpAffichage.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private GroupBox grpCalculateurMasque;
-        private Label lblTitre;
         private TextBox txtAdresseIPCIDR;
         private TextBox txtMasque;
         private TextBox txtAdresseIP;

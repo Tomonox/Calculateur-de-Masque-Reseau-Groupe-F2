@@ -294,5 +294,10 @@ namespace SAE
             txtPremiereMachineAffiche.Text = "Première Machine : ";
             txtDerniereMachineAffiche.Text = "Dernière Machine : ";
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
